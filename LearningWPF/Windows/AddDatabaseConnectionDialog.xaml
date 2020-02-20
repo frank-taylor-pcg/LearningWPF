@@ -1,0 +1,62 @@
+﻿<Window x:Class="LearningWPF.Windows.AddDatabaseConnectionDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LearningWPF.Windows"
+        mc:Ignorable="d"
+        Title="AddDatabaseConnectionDialog" Height="500" Width="400" WindowStartupLocation="CenterScreen">
+	
+	<Viewbox Stretch="Uniform">
+		<Border Padding="10">
+			<StackPanel>
+				<Label>Server</Label>
+				<TextBox />
+			
+				<GroupBox Header="Log on Details" Margin="0,10">
+					<StackPanel>
+						<RadioButton GroupName="AuthorizationType" Content="Windows Authentication" IsChecked="True" Margin="0,5" />
+						<RadioButton GroupName="AuthorizationType" Content="SQL Authentication" Margin="0,5" />
+
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="*"/>
+								<ColumnDefinition Width="3*" MinWidth="150"/>
+							</Grid.ColumnDefinitions>
+						
+							<Grid.RowDefinitions>
+								<RowDefinition />
+								<RowDefinition />
+							</Grid.RowDefinitions>
+
+							<Label Grid.Row="0" Grid.Column="0" Margin="0,5" >User name</Label>
+							<TextBox Grid.Row="0" Grid.Column="1" Margin="0,5" />
+
+							<Label Grid.Row="1" Grid.Column="0" Margin="0,5" >Password</Label>
+							<PasswordBox Grid.Row="1" Grid.Column="1" Margin="0,5" />
+						</Grid>
+					</StackPanel>
+				</GroupBox>
+			
+				<!-- Look up a better way of doing this -->
+				<ComboBox SelectedIndex="0">
+					<ComboBox.ItemsSource>
+						<CompositeCollection>
+							<ListBoxItem>Select database</ListBoxItem>
+						</CompositeCollection>
+					</ComboBox.ItemsSource>
+				</ComboBox>
+				<CheckBox Margin="0,10">Contains production data</CheckBox>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition />
+						<ColumnDefinition />
+					</Grid.ColumnDefinitions>
+
+					<Button Grid.Column="0" Margin="10,10">OK</Button>
+					<Button Grid.Column="1" Margin="10,10">Cancel</Button>
+				</Grid>
+			</StackPanel>
+		</Border>
+	</Viewbox>
+</Window>

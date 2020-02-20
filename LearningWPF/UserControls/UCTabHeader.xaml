@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="LearningWPF.UserControls.UCTabHeader"
+						xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+						xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+						xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+						xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+						xmlns:uc="clr-namespace:LearningWPF.UserControls"
+						xmlns:converters="clr-namespace:LearningWPF.Converters"
+						mc:Ignorable="d" 
+						d:DesignHeight="450" d:DesignWidth="800"
+						x:Name="ucTabHeader">
+	<UserControl.Resources>
+		<converters:BadgeAlertCountToVisibilityConverter x:Key="BadgeAlertCountToVisibilityConverter" />
+	</UserControl.Resources>
+
+	<StackPanel Orientation="Horizontal" MinHeight="40">
+		<TextBlock Text="{Binding ElementName=ucTabHeader, Path=Header}" FontSize="16" VerticalAlignment="Center"/>
+		<!-- I can't get the badge to separate without this included in the UserControl. -->
+		<FrameworkElement Width="10" />
+		<uc:UCBadge AlertCount="{Binding ElementName=ucTabHeader, Path=AlertCount}" Size="20" MinWidth="30" Visibility="{Binding ElementName=ucTabHeader, Path=AlertCount, Converter={StaticResource BadgeAlertCountToVisibilityConverter}}" />
+	</StackPanel>
+</UserControl>

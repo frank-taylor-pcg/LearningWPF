@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="LearningWPF.UserControls.UCClassroomStatusTracker"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LearningWPF.UserControls"
+						 xmlns:converters="clr-namespace:LearningWPF.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+						 x:Name="ucClassroomStatusTracker">
+	<Grid DataContext="{Binding ElementName=ucClassroomStatusTracker}">
+		<Grid.Resources>
+			<converters:ClassroomKidRatioToStringConverter x:Key="ClassroomKidRatioToStringConverter" />
+			<converters:ClassroomTeacherRatioToStringConverter x:Key="ClassroomTeacherRatioToStringConverter" />
+			<converters:ClassroomRatioToStringConverter x:Key="ClassroomRatioToStringConverter" />
+			<converters:ClassroomRatioToColorConverter x:Key="ClassroomRatioToColorConverter" />
+		</Grid.Resources>
+			
+		<DataGrid ItemsSource="{Binding Classrooms.Data}" FontSize="20"
+							AutoGenerateColumns="False" HorizontalAlignment="Left" VerticalAlignment="Top" IsReadOnly="True" IsHitTestVisible="False" Margin="20" HeadersVisibility="Column" BorderBrush="Black" BorderThickness="1">
+			<DataGrid.Columns>
+				<DataGridTemplateColumn Header="Classroom">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Path=Name}" Padding="5" />
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+
+				<DataGridTemplateColumn Header="Kids">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Path=., Converter={StaticResource ClassroomKidRatioToStringConverter}}" TextAlignment="Center" Padding="5" />
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+
+				<DataGridTemplateColumn Header="Teachers">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Path=., Converter={StaticResource ClassroomTeacherRatioToStringConverter}}" TextAlignment="Center" Padding="5" />
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+
+				<DataGridTemplateColumn Header="Ratio">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Path=., Converter={StaticResource ClassroomRatioToStringConverter}}" Foreground="{Binding Path=., Converter={StaticResource ClassroomRatioToColorConverter}}" TextAlignment="Center" Padding="5" />
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+
+			</DataGrid.Columns>
+
+			<DataGrid.ColumnHeaderStyle>
+				<Style TargetType="DataGridColumnHeader">
+					<Setter Property="Background" Value="Green" />
+					<Setter Property="Foreground" Value="White" />
+					<Setter Property="FontWeight" Value="Bold" />
+					<Setter Property="HorizontalContentAlignment" Value="Center" />
+					<Setter Property="Padding" Value="10" />
+					<Setter Property="BorderBrush" Value="Black" />
+					<Setter Property="BorderThickness" Value="1" />
+				</Style>
+			</DataGrid.ColumnHeaderStyle>
+
+			<DataGrid.RowStyle>
+				<Style TargetType="DataGridRow">
+					<Style.Triggers>
+						<DataTrigger Binding="{Binding Name}" Value="Total">
+							<Setter Property="Background" Value="LightGray"/>
+						</DataTrigger>
+					</Style.Triggers>
+				</Style>
+			</DataGrid.RowStyle>
+		</DataGrid>
+	</Grid>
+</UserControl>
