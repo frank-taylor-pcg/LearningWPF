@@ -31,7 +31,6 @@ namespace LearningWPF
 		{
 			TestData();
 			InitializeComponent();
-			//DataContext = this;
 		}
 
 		private void TestData()
